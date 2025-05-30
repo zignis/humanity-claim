@@ -15,7 +15,7 @@ jobs:
           # Random sleep between 0 and 3600 seconds (0-60 minutes)
           DELAY=$(( RANDOM % 3601 ))
           echo "Sleeping for $DELAY seconds before sending POST request..."
-          sleep 10
+          sleep $DELAY
 
       - name: Send daily claim POST request
         run: |
