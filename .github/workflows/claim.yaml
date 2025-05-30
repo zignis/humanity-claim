@@ -1,0 +1,24 @@
+name: Daily reward claim
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  claim_reward:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Random delay before POST request
+        run: |
+          # Random sleep between 0 and 3600 seconds (0-60 minutes)
+          DELAY=$(( RANDOM % 3601 ))
+          echo "Sleeping for $DELAY seconds before sending POST request..."
+          sleep $DELAY
+
+      - name: Send daily claim POST request
+        run: |
+          curl -X POST https://testnet.humanity.org/api/rewards/daily/claim \
+            -H "Authorization: Bearer ${{ secrets.AUTH_TOKEN }}" \
+            -H "Content-Type: application/json"
